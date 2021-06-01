@@ -20,10 +20,13 @@ class Container extends Component {
     });
   };
 
+  async componentDidMount() {
+    const result = await this.mockApiFetch(true, 3000);
 
-
-  // We want to call the fake api when the app is Container is loaded
-  // this.mockApiFetch(true, 3000)
+    if (result.status === "ready") {
+      this.setState({ loading: false });
+    }
+  }
 
   render() {
     return (

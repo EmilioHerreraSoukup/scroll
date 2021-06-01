@@ -1,27 +1,28 @@
 import React from "react";
 
+export function ScrollDetect(WrappedComponent) {
+  return class extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        scrollDistance: 0,
+      };
+    }
 
-// FUNC COMPONENT
+    setScrollDistance = () => {
+      this.setState({ scrollDistance: window.scrollY });
+    };
 
-export const ScrollDetect = (WrappedComponent) => ({ ...props }) => {
-  return <WrappedComponent {...props}/>;
-};
+    componentDidMount() {
+      window.addEventListener("scroll", this.setScrollDistance);
+    }
 
-// CLASS COMPONENT
+    componentWillUnmount() {
+      window.removeEventListener("scroll", this.setScrollDistance);
+    }
 
-// export function ScrollDetect(WrappedComponent) {
-//   return class extends React.Component {
-//     constructor(props) {
-//       super(props);
-//       this.state = {};
-//     }
-
-//     render() {
-//       return (
-//         <WrappedComponent
-//           {...this.props}
-//         />
-//       );
-//     }
-//   };
-// }
+    render() {
+      return <WrappedComponent {...this.props} scrolled={false} />;
+    }
+  };
+}
