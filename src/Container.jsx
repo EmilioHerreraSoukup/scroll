@@ -20,9 +20,7 @@ class Container extends Component {
     });
   };
 
-
-
-  // We want to call the fake api when the app is Container is loaded
+  // We want to call the fake api when Container is loaded
   // this.mockApiFetch(true, 3000)
 
   render() {
